@@ -1,5 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
+import {URL, X_API_KEY} from "./config"
 
 interface breedState {
   [key: string]: any  
@@ -27,12 +28,13 @@ const breedSlice = createSlice({
   },
 });
 
+
 export const getDogBreeds = createAsyncThunk(
   "breed/getBreeds",
   async (amount: Array<breedState>) => {
     try {
-      const response = await axios.get('https://api.thedogapi.com/v1/breeds', {headers: {
-        'x-api-key': "live_2ud1wZmoYp94tsnCTIjNhYrklMlSyu0VzUorFSVlr6EqhZkHL0wIxYe282tlYhey",
+      const response = await axios.get(`${URL}/breeds`, {headers: {
+        'x-api-key': X_API_KEY,
       }});
       const data = response.data;
       return (data)
@@ -41,7 +43,5 @@ export const getDogBreeds = createAsyncThunk(
     }
   }
 );
-
-/* export const { increment, decrement, incrementByAmount } = breedSlice.actions; */
 
 export default breedSlice.reducer;

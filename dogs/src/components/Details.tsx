@@ -1,22 +1,34 @@
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../state/store";
-import { getDogBreedById } from "../state/api/dogSlice";
-import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../state/store";
 
 const Details = () => {
   const dogbreed = useSelector((state: RootState) => state.dogApi.value);
-  const dispatch = useDispatch<AppDispatch>();
 
   return (
-    <div>
-      <Link to={`/`}>Back</Link>
-      <h1>{dogbreed.name}</h1>
-      <p>good for: {dogbreed.bred_for}</p>
-      <p>life span: {dogbreed.life_span}</p>
-      <p>Temperament: {dogbreed.temperament}</p>
-      <img src={dogbreed.url} alt={dogbreed.name} />
+    <div className="container-details">
+      <div className="info">
+        <h1 className="title">{dogbreed.name}</h1>
+        <div className="spacer"></div>
+        <p className="info-text">
+          {" "}
+          <span className="bold">Good for:</span> {dogbreed.bred_for}
+        </p>
+        <p className="info-text">
+          <span className="bold">Life span:</span> {dogbreed.life_span}
+        </p>
+        <p className="info-text">
+          <span className="bold">Temperament:</span> {dogbreed.temperament}
+        </p>
+        <div className="spacer"></div>
+        <div className="spacer"></div>
+        <Link className="button-back" to={`/`}>
+          Back
+        </Link>
+      </div>
+      <div className="photo-container">
+        <img className="photo" src={dogbreed.url} alt={dogbreed.name} />
+      </div>
     </div>
   );
 };
