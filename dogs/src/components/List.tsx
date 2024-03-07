@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../state/store";
 import { getDogBreeds } from "../state/api/breedSlice";
@@ -8,8 +7,6 @@ import {
   Key,
   ReactElement,
   JSXElementConstructor,
-  ReactNode,
-  ReactPortal,
   useEffect,
   useState,
 } from "react";
@@ -17,7 +14,7 @@ import {
 const List = () => {
   const breeds = useSelector((state: RootState) => state.breedApi.value);
   const dispatch = useDispatch<AppDispatch>();
-  const [filteredBreed, setFilteredBreed] = useState("");
+  const [filteredBreed, setFilteredBreed] = useState("1");
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(getDogBreeds([]));
@@ -38,25 +35,38 @@ const List = () => {
   };
 
   return (
-    <div>
-      <div>
+    <div className="container">
+      <h1 className="title">Find your breed</h1>
+      <div className="spacer"></div>
+      <div className="spacer"></div>
+      <div className="filter">
         <select name="breedsSelector" id="" onChange={handleChange}>
           {breeds.map((breed: { id: number; name: string }) => {
             return <option value={breed.id}>{breed.name}</option>;
           })}
         </select>
-        <button onClick={filterBreed}>Filter</button>
+        <button onClick={filterBreed} className="button-filter">
+          Find
+        </button>
       </div>
-      <ul>
+      <div className="spacer"></div>
+      <div className="spacer"></div>
+      <h1 className="title-m">Common Breeds</h1>
+      <div className="spacer"></div>
+      <div className="spacer"></div>
+      <ul className="breeds-ul">
         {breeds
-          .slice(0, 10)
+          .slice(0, 50)
           .map(
             (breed: {
               id: Key | null | undefined;
               name: ReactElement<any, string | JSXElementConstructor<any>>;
             }) => (
               <li key={breed.id}>
-                <button onClick={() => goToDetails(breed.id)}>
+                <button
+                  onClick={() => goToDetails(breed.id)}
+                  className="breeds"
+                >
                   {breed.name}
                 </button>
               </li>

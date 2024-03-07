@@ -1,4 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {URL, X_API_KEY} from "./config"
 import axios from 'axios';
 
 interface dogState {
@@ -32,8 +33,8 @@ export const getDogImg = createAsyncThunk(
   "dog/getDogImg",
   async (imgId: string) => {
     try {
-      const response = await axios.get(`https://api.thedogapi.com/v1/images/${imgId}`, {headers: {
-        'x-api-key': "live_2ud1wZmoYp94tsnCTIjNhYrklMlSyu0VzUorFSVlr6EqhZkHL0wIxYe282tlYhey",
+      const response = await axios.get(`${URL}/images/${imgId}`, {headers: {
+        'x-api-key': X_API_KEY,
       }});
       const data = response.data;
       return (data)
@@ -47,13 +48,13 @@ export const getDogBreedById = createAsyncThunk(
   "breed/getDogBreedById",
   async (id: number) => {
     try {
-      const response = await axios.get(`https://api.thedogapi.com/v1/breeds/${id}`, {headers: {
-        'x-api-key': "live_2ud1wZmoYp94tsnCTIjNhYrklMlSyu0VzUorFSVlr6EqhZkHL0wIxYe282tlYhey",
+      const response = await axios.get(`${URL}/breeds/${id}`, {headers: {
+        'x-api-key': X_API_KEY,
       }});
       const data = response.data;
 
-      const fetchImg = await axios.get(`https://api.thedogapi.com/v1/images/${data.reference_image_id}`, {headers: {
-        'x-api-key': "live_2ud1wZmoYp94tsnCTIjNhYrklMlSyu0VzUorFSVlr6EqhZkHL0wIxYe282tlYhey",
+      const fetchImg = await axios.get(`${URL}/images/${data.reference_image_id}`, {headers: {
+        'x-api-key':X_API_KEY,
       }});
       
       const imgURL = fetchImg.data.url
