@@ -117,3 +117,19 @@ select {
 .button-filter:hover {
   background-color: rgb(33, 33, 33);
 }
+
+@media screen and (max-width: 759px) {
+  .container-details {
+    flex-direction: column-reverse;
+  }
+
+  .photo-container {
+    max-width: 80%;
+  }
+
+  .button-back {
+    padding: 1rem 3rem;
+    font-size: 1rem;
+    letter-spacing: 0.15rem;
+  }
+}
